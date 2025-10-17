@@ -1,0 +1,43 @@
+<!doctype html><html lang="es"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Calma diaria — CALMA</title>
+<style>body{margin:0;background:linear-gradient(180deg,#0d1629,#0b1222);color:#eef3ff;font-family:system-ui}.container{max-width:1000px;margin:0 auto;padding:1.4rem}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem}.card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:1rem}.row{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;justify-content:space-between}.btn{padding:.55rem .9rem;border-radius:10px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:#eef3ff}</style>
+  <link rel="stylesheet" href="assets/css/accessibility.css">
+  <link rel="stylesheet" href="assets/css/dock.css">
+</head><body>
+<div class="container">
+  <h1>Tu calma diaria 🪶</h1>
+  <div class="grid">
+    <div class="card">
+      <h3>Checklist</h3>
+      <div id="list"></div>
+      <div class="row" style="margin-top:.75rem">
+        <button class="btn" id="reset">🔄 Reiniciar día</button>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Notas</h3>
+      <textarea id="notes" rows="10" style="width:100%;border-radius:10px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.06);color:#eef3ff;padding:.75rem"></textarea>
+      <p><small>Consejo: escribe 1 cosa por la que agradeces hoy.</small></p>
+    </div>
+  </div>
+</div>
+<script>
+(()=>{
+  const key='calma_panel_v1'; const today=new Date().toISOString().slice(0,10);
+  let state = { day: today, tasks: [{label:'Respiración (5 min)',done:false},{label:'Paisaje sonoro (10 min)',done:false},{label:'Agradecimiento del día',done:false},{label:'Caminar 10 minutos',done:false}], notes:'' };
+  try{ const raw=localStorage.getItem(key); if(raw) state=Object.assign(state, JSON.parse(raw), {day:today}); }catch(e){}
+  const list=document.getElementById('list'); const notes=document.getElementById('notes');
+  function render(){ list.innerHTML=''; state.tasks.forEach((t,i)=>{ const l=document.createElement('label'); l.style.display='flex'; l.style.alignItems='center'; l.style.gap='.5rem'; l.innerHTML='<input type=checkbox '+(t.done?'checked':'')+'> <span>'+t.label+'</span>'; l.querySelector('input').onchange=(e)=>{ t.done=e.target.checked; save(); }; list.appendChild(l); }); notes.value=state.notes||''; }
+  function save(){ localStorage.setItem(key, JSON.stringify(state)); }
+  document.getElementById('reset').onclick=()=>{ state = { day: today, tasks: state.tasks.map(t=>({label:t.label,done:false})), notes:'' }; save(); render(); };
+  notes.oninput=(e)=>{ state.notes=e.target.value; save(); };
+  render();
+})();
+</script>
+
+<footer class="calma-footer" style="margin-top:2rem;padding:1rem;text-align:center;opacity:.9">bienestar auditivo — Hecho con amor por Pancho para mi Belén 💜</footer>
+
+  <script src="assets/js/accessibility.js"></script>
+  <script src="assets/js/dock.js"></script>
+</body></html>
