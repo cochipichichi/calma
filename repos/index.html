@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CALMA · Repos</title>
+  <link rel="stylesheet" href="assets/css/accessibility.css">
+  <style>
+    :root{ --bg1:#0b1224; --bg2:#0f1c36; --fg:#e8f0ff; --mut:#b8c2d9; }
+    *{ box-sizing:border-box }
+    html,body{ height:100%; margin:0; }
+    body{ font-family:system-ui,Segoe UI,Roboto,Ubuntu,Arial,sans-serif; color:var(--fg);
+          background: radial-gradient(1200px 600px at 70% 20%, var(--bg2), var(--bg1)); }
+    header{ text-align:center; padding:2.2rem 1rem .8rem; }
+    header h1{ margin:0 0 .3rem; font-weight:800; letter-spacing:.3px }
+    header p{ margin:0; opacity:.8 }
+    .grid{ width:min(1200px,96vw); margin:1.5rem auto 2.5rem; display:grid; gap:1rem;
+            grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); }
+    .card{ background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12);
+            border-radius:20px; padding:1.1rem; box-shadow:0 30px 60px rgba(0,0,0,.35);
+            transition: transform .2s ease, box-shadow .2s ease; }
+    .card:hover{ transform: translateY(-4px); box-shadow:0 35px 80px rgba(0,0,0,.4); }
+    .card h3{ margin:.2rem 0 .4rem }
+    .mut{ color:var(--mut); font-size:.95rem }
+    .row{ display:flex; gap:.5rem; flex-wrap:wrap; margin-top:.75rem }
+    .btn{ text-decoration:none; padding:.55rem .9rem; border-radius:12px;
+           border:1px solid rgba(255,255,255,.2); background:rgba(255,255,255,.08); color:var(--fg); font-weight:600 }
+    footer{ text-align:center; opacity:.9; margin:2rem 0 1.5rem }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Repos CALMA</h1>
+    <p class="mut">Selecciona un proyecto para abrir su webapp</p>
+  </header>
+
+  <section class="grid">
+    <article class="card">
+      <h3>🌿 Calma ESP32S3</h3>
+      <p class="mut">Interfaz para ESP32-S3</p>
+      <div class="row">
+        <a class="btn" href="calma-esp32s3-main/webapp/index.html">💜 Abrir webapp</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <h3>🎧 Aura Adaptive Masker</h3>
+      <p class="mut">Máscara sonora adaptativa</p>
+      <div class="row">
+        <a class="btn" href="aura-adaptive-masker-main/webapp/index.html">💜 Abrir webapp</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <h3>🎵 NotchLab Notched Music</h3>
+      <p class="mut">Audio con notch terapéutico</p>
+      <div class="row">
+        <a class="btn" href="notchlab-notched-music-main/webapp/index.html">💜 Abrir webapp</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <h3>🫁 Respira+ Biofeedback</h3>
+      <p class="mut">Respiración guiada y biofeedback</p>
+      <div class="row">
+        <a class="btn" href="respira-plus-biofeedback-main/webapp/index.html">💜 Abrir webapp</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <h3>🦻 Oído Guardian Dosimeter</h3>
+      <p class="mut">Dósimetro y guardian auditivo</p>
+      <div class="row">
+        <a class="btn" href="oido-guardian-dosimeter-main/webapp/index.html">💜 Abrir webapp</a>
+      </div>
+    </article>
+  </section>
+
+  <footer>bienestar auditivo — Hecho con amor por Pancho para mi Belén 💜</footer>
+
+  <script src="assets/js/accessibility.js"></script>
+  <script>
+  // Partículas suaves de fondo (modo calma)
+  (function(){
+    const c=document.createElement('canvas'); c.id='calma-bg'; c.style.cssText='position:fixed;inset:0;z-index:-1';
+    document.body.appendChild(c); const ctx=c.getContext('2d'); let w,h,parts=[];
+    function resize(){ w=c.width=innerWidth; h=c.height=innerHeight; }
+    function spawn(n=180){ parts=[]; for(let i=0;i<n;i++) parts.push({x:Math.random()*w,y:Math.random()*h,r:.6+Math.random()*1.8,a:.22+Math.random()*0.35,vy:-.08-Math.random()*0.2,vx:(Math.random()-.5)*0.12}); }
+    function draw(){ ctx.clearRect(0,0,w,h); ctx.fillStyle='rgba(255,255,255,.85)'; for(const p of parts){ ctx.globalAlpha=p.a; ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill(); p.y+=p.vy; p.x+=p.vx; if(p.y<-10){ p.y=h+10; p.x=Math.random()*w; } } requestAnimationFrame(draw); }
+    resize(); spawn(); draw(); addEventListener('resize', ()=>{ resize(); spawn(); });
+  })();
+  </script>
+</body>
+</html>
