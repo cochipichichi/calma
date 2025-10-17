@@ -1,0 +1,39 @@
+<!doctype html><html lang="es"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Respira+ — CALMA</title>
+<style>body{margin:0;display:grid;place-items:center;height:100vh;background:#0b1224;color:#e8f0ff;font-family:system-ui}canvas{width:min(380px,80vw);height:min(380px,80vw)}</style>
+  <link rel="stylesheet" href="assets/css/accessibility.css">
+  <link rel="stylesheet" href="assets/css/dock.css">
+</head><body>
+<main><h1>Respira+ 🫁</h1><canvas id="breath" width="600" height="600"></canvas></main>
+<script>
+(function(){
+  const c = document.getElementById('breath'); const ctx = c.getContext('2d');
+  let w,h,animId=null; function resize(){ w=c.width=c.clientWidth*2; h=c.height=c.clientHeight*2; }
+  let pattern={ inhale:4, hold:0, exhale:6 };
+  function draw(ts){
+    ctx.clearRect(0,0,w,h); const cx=w/2, cy=h/2;
+    const total=pattern.inhale+pattern.hold+pattern.exhale;
+    const t=(ts/1000)%total; let phase,p;
+    if(t<pattern.inhale){ phase='in'; p=t/pattern.inhale; }
+    else if(t<pattern.inhale+pattern.hold){ phase='hold'; p=(t-pattern.inhale)/Math.max(0.001,pattern.hold); }
+    else { phase='out'; p=(t-pattern.inhale-pattern.hold)/pattern.exhale; }
+    const rMin=Math.min(w,h)*0.18, rMax=Math.min(w,h)*0.34; let r;
+    if(phase==='in'){ const e=(1-Math.cos(Math.PI*p))/2; r=rMin+(rMax-rMin)*e; }
+    else if(phase==='hold'){ r=rMax; }
+    else { const e=(1-Math.cos(Math.PI*(1-p)))/2; r=rMin+(rMax-rMin)*e; }
+    ctx.save(); ctx.shadowBlur=40; ctx.shadowColor='rgba(200,220,255,.55)';
+    ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2); ctx.fillStyle='rgba(230,240,255,.15)'; ctx.fill(); ctx.restore();
+    ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2); ctx.lineWidth=Math.min(w,h)*0.02; ctx.strokeStyle='rgba(255,255,255,.8)'; ctx.stroke();
+    animId=requestAnimationFrame(draw);
+  }
+  function start(){ if(!animId) animId=requestAnimationFrame(draw); }
+  window.addEventListener('resize', resize); resize(); start();
+})();
+</script>
+
+<footer class="calma-footer" style="margin-top:2rem;padding:1rem;text-align:center;opacity:.9">bienestar auditivo — Hecho con amor por Pancho para mi Belén 💜</footer>
+
+  <script src="assets/js/accessibility.js"></script>
+  <script src="assets/js/dock.js"></script>
+</body></html>
