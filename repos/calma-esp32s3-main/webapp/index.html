@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CALMA — Panel</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>🎧 CALMA — Belén Edition</h1>
+    <div class="controls">
+      <button id="btn-contrast" title="Alto contraste">🌓 Alto contraste</button>
+      <button id="btn-font" title="A+/A-">A+/A-</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2>🔊 Volumen</h2>
+      <input type="range" id="volume" min="0" max="100" value="35"/>
+      <div>
+        <button data-v="+5">+5</button>
+        <button data-v="-5">-5</button>
+        <span id="vol-label">35%</span>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>🎧 Tipo de ruido</h2>
+      <div class="grid">
+        <button class="mode" data-mode="white">⚪ Blanco</button>
+        <button class="mode" data-mode="pink">🌸 Rosa</button>
+        <button class="mode" data-mode="brown">🟤 Marrón</button>
+        <button class="mode" data-mode="notch">🎯 Notch</button>
+        <button class="mode" data-mode="ocean">🌊 Ocean</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>🎯 Frecuencia tinnitus (Hz)</h2>
+      <input type="range" id="ftin" min="1000" max="12000" step="10" value="8000"/>
+      <div><span id="ftin-label">8000 Hz</span> <button id="sweep">🔎 Barrido</button></div>
+    </section>
+
+    <section class="card">
+      <h2>⏱️ Temporizador</h2>
+      <div class="grid">
+        <button class="timer" data-min="5">5 min</button>
+        <button class="timer" data-min="10">10 min</button>
+        <button class="timer" data-min="20">20 min</button>
+        <button class="timer" data-min="30">30 min</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>💾 Presets</h2>
+      <div class="grid">
+        <button class="preset" data-id="calma">Calma</button>
+        <button class="preset" data-id="descanso">Descanso</button>
+        <button class="preset" data-id="ola">Ola</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <small>Hecho con cariño por Pancho 🧡 — CALMA v1</small>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

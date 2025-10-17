@@ -1,0 +1,4 @@
+<!doctype html><html lang=es><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Respira+</title><style>body{font-family:system-ui;background:#0b1220;color:#e8eefb;padding:16px;text-align:center}.circle{width:200px;height:200px;border-radius:50%;margin:20px auto;background:#1e293b;transition:transform 3s ease-in-out}</style><h1>🌿 Respira+</h1><p>Inhala cuando el círculo crece, exhala cuando disminuye.</p><div class=circle id=c></div><p><button id=start>Iniciar (5 min)</button></p><script>
+let growing=true; const c=document.getElementById('c'); setInterval(()=>{ c.style.transform=growing?'scale(1.2)':'scale(0.8)'; growing=!growing; },5000); // 6 rpm approx
+start.onclick=()=>{ const end=Date.now()+5*60*1000; const timer=setInterval(()=>{ if(Date.now()>end){clearInterval(timer); alert('Sesión completa');}},1000); };
+</script>

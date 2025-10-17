@@ -1,0 +1,10 @@
+<!doctype html><html lang="es"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>NotchLab</title><style>body{font-family:system-ui;background:#0b1220;color:#e8eefb;padding:16px}section{background:#111827;padding:12px;border-radius:12px;margin:10px 0}</style><h1>🎵 NotchLab</h1><section><h3>Archivo local</h3><input id=f type=file accept="audio/*"></section><section><h3>Parámetros</h3>f_tin <input id=ftin type=range min=1000 max=12000 value=8000> <span id=fl>8000 Hz</span><br>Ancho (±octavas) <input id=oct type=range min=0.25 max=1 step=0.25 value=0.5> <span id=ol>±0.5</span><br>Profundidad <input id=depth type=range min=0 max=1 step=0.05 value=0.7> <span id=dl>0.70</span></section><audio id=player controls></audio><script>
+const ctx=new (window.AudioContext||window.webkitAudioContext)();
+let src=null, biq=ctx.createBiquadFilter(); biq.type='notch'; biq.frequency.value=8000; biq.Q.value=20;
+let gain=ctx.createGain(); gain.gain.value=1;
+function connect(node){ node.connect(biq); biq.connect(gain); gain.connect(ctx.destination); }
+f.onchange=async e=>{ if(src){src.disconnect()} const file=e.target.files[0]; const url=URL.createObjectURL(file); player.src=url; await player.play(); src=ctx.createMediaElementSource(player); connect(src); }
+ftin.oninput=e=>{ biq.frequency.value=+e.target.value; fl.textContent=e.target.value+' Hz'; }
+oct.oninput=e=>{ const val=+e.target.value; biq.Q.value=20/val; ol.textContent='±'+val; }
+depth.oninput=e=>{ const d=+e.target.value; dl.textContent=d.toFixed(2); gain.gain.value=1; /* mix simplificado */ }
+</script>
