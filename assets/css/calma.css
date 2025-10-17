@@ -1,8 +1,8 @@
 
 /* Calma UI */
-#calma-toggle { position: fixed; right: 1rem; bottom: 1rem; z-index: 9999; padding: .7rem 1rem; border-radius: 999px; border:none; box-shadow: 0 10px 25px rgba(0,0,0,.2); font-weight:700; cursor:pointer; }
+#calma-toggle { position: fixed; right: 1rem; bottom: calc(1rem + env(safe-area-inset-bottom)); z-index: 9997; padding: .7rem 1rem; border-radius: 999px; border:none; box-shadow: 0 10px 25px rgba(0,0,0,.2); font-weight:700; cursor:pointer; }
 #calma-overlay { position: fixed; inset: 0; pointer-events: none; z-index: 9990; }
-#calma-heart { position: fixed; left: 1rem; bottom: 1rem; width: 40px; height: 40px; z-index: 9999; pointer-events: none; transform-origin: center; }
+#calma-heart { position: fixed; left: 1rem; bottom: calc(1rem + env(safe-area-inset-bottom)); width: 40px; height: 40px; z-index: 9996; pointer-events: none; transform-origin: center; }
 .calma-beat { animation: calmBeat 1.5s ease-in-out infinite; }
 @keyframes calmBeat { 0% { transform: scale(1); } 14% { transform: scale(1.15); } 28% { transform: scale(1); } 42% { transform: scale(1.15); } 70% { transform: scale(1); } 100% { transform: scale(1); } }
 .calma-footer { margin-top: 3rem; padding: 2rem 1rem; text-align:center; opacity:.9; font-size:.95rem; }

@@ -12,3 +12,7 @@ canvas{ display:block; width:min(380px, 80vw); height:min(380px, 80vw); margin:1
 .controls input[type="range"]{ width:220px }
 .note{ opacity:.75; font-size:.95rem; text-align:center; margin-top:1rem }
 footer{ text-align:center; opacity:.8; margin-top:1rem }
+
+
+/* Reservar espacio inferior para el dock y el botón de calma */
+.calma-safe-bottom{ padding-bottom: clamp(80px, 12vh, 140px); }

@@ -12,6 +12,7 @@
     d.appendChild(link('./modules/exposicion.html','🎭 Exposición'));
     d.appendChild(link('./modules/calma-panel.html','🪶 Calma diaria'));
     document.body.appendChild(d);
+    var sp=document.createElement('div'); sp.id='calma-spacer'; sp.style.height='100px'; sp.style.width='1px'; sp.style.opacity='0'; document.body.appendChild(sp);
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', make); else make();
 })();
