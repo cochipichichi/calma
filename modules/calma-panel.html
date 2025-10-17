@@ -1,0 +1,43 @@
+
+<!doctype html><html lang="es"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tu calma diaria — CALMA·AR</title>
+<link rel="stylesheet" href="../assets/css/panel.css">
+<link rel="stylesheet" href="../assets/css/calma.css">
+  <link rel="stylesheet" href="assets/css/dock.css">
+</head><body>
+<div class="container">
+  <div class="row">
+    <h1>Tu calma diaria 🪶</h1>
+    <div class="badge" id="who"></div>
+  </div>
+  <small>Fecha: <span id="day"></span></small>
+  <div class="grid">
+    <div class="card">
+      <h3>Checklist</h3>
+      <div id="list" class="list"></div>
+      <div class="row" style="margin-top:.75rem">
+        <button class="btn" id="reset">🔄 Reiniciar día</button>
+        <button class="btn" id="swap">🔁 Cambiar a mi pareja</button>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Notas</h3>
+      <textarea id="notes" rows="10" style="width:100%;border-radius:10px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.06);color:#eef3ff;padding:.75rem"></textarea>
+      <p><small>Consejo: escribe 1 cosa por la que agradeces hoy.</small></p>
+      <div class="row">
+        <a class="btn" href="./respira.html">🫁 Respira+</a>
+        <a class="btn" href="./focus.html">🎧 Focus auditivo</a>
+        <a class="btn" href="./exposicion.html">🎭 Exposición</a>
+      </div>
+    </div>
+  </div>
+  <footer class="calma-footer">
+    Proyecto de bienestar auditivo — Hecho con amor por Pancho para mi Belén 💜
+    <small>Porque a veces, la calma también se diseña, se imprime y se programa.</small>
+  </footer>
+</div>
+<script src="../assets/js/panel.js"></script>
+<script src="../assets/js/calma.js"></script>
+  <script src="assets/js/dock.js"></script>
+</body></html>

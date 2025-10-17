@@ -1,0 +1,35 @@
+
+<!doctype html><html lang="es"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Modo Exposición — CALMA·AR</title>
+<link rel="stylesheet" href="../assets/css/expo.css">
+<link rel="stylesheet" href="../assets/css/calma.css">
+  <link rel="stylesheet" href="assets/css/dock.css">
+</head><body>
+<div id="app">
+  <div class="top">
+    <div class="status">🎭 Modo exposición</div>
+    <div><a href="../index.html" style="color:#eaf2ff">Salir</a></div>
+  </div>
+  <main>
+    <canvas id="bg" aria-hidden="true"></canvas>
+    <div class="center">
+      <h1>CALMA·AR</h1>
+      <p>Espacio contemplativo para Oculus Quest, tablets y pantallas grandes. Partículas suaves + cronómetro de calma.</p>
+      <div class="controls">
+        <button onclick="Expo.play()">▶️ Iniciar cronómetro</button>
+        <button onclick="Expo.pause()">⏸️ Pausar</button>
+        <button onclick="if(document.fullscreenElement){document.exitFullscreen()}else{document.documentElement.requestFullscreen()}">⛶ Pantalla completa</button>
+      </div>
+      <p id="timer" aria-live="polite">00:00</p>
+    </div>
+  </main>
+  <footer class="calma-footer">
+    Proyecto de bienestar auditivo — Hecho con amor por Pancho para mi Belén 💜
+    <small>Porque a veces, la calma también se diseña, se imprime y se programa.</small>
+  </footer>
+</div>
+<script src="../assets/js/expo.js"></script>
+<script src="../assets/js/calma.js"></script>
+  <script src="assets/js/dock.js"></script>
+</body></html>

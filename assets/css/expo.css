@@ -1,0 +1,13 @@
+
+html,body{height:100%;margin:0;background:radial-gradient(900px 600px at 80% 20%,#16244a,#0a0f1d);color:#eaf2ff;font-family:system-ui,Segoe UI,Roboto,Ubuntu,Arial,sans-serif}
+#app{position:fixed;inset:0;display:flex;flex-direction:column}
+.top{display:flex;gap:.75rem;align-items:center;justify-content:space-between;padding:1rem 1.2rem;opacity:.9}
+.top .status{font-weight:600}
+main{flex:1;position:relative;overflow:hidden}
+canvas{position:absolute;inset:0;width:100%;height:100%}
+.center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);text-align:center}
+.center h1{font-size:clamp(28px,5vw,60px);margin:.2rem 0}
+.center p{opacity:.85;margin:0 0 1rem}
+.controls{display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap}
+.controls button{padding:.7rem 1rem;border-radius:999px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.06);color:#eaf2ff}
+footer{padding:1rem;text-align:center;opacity:.8}

@@ -1,0 +1,30 @@
+
+<!doctype html><html lang="es"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Respira+ — CALMA·AR</title>
+<link rel="stylesheet" href="../assets/css/respira.css">
+<link rel="stylesheet" href="../assets/css/calma.css">
+  <link rel="stylesheet" href="assets/css/dock.css">
+</head><body>
+<main>
+  <section class="card">
+    <h1>Respira+ 🫁</h1>
+    <p class="lead">Animación guiada de respiración para momentos de ansiedad o tinnitus. Puedes activar la guía por voz si tu navegador la soporta.</p>
+    <canvas id="breath" width="600" height="600" aria-label="Guía visual de respiración"></canvas>
+    <div class="controls">
+      <button onclick="Respira.speakLoop()">🔊 Guía por voz</button>
+      <button onclick="Respira.stopSpeak()">🔇 Silencio</button>
+      <label>Ritmo (respiraciones/min): <input type="range" min="3" max="10" value="6" oninput="Respira.setBpm(this.value)"></label>
+      <a href="../index.html" class="btn">⬅️ Volver</a>
+    </div>
+    <p class="note">Sugerencia: 4-6 respiraciones por minuto para relajación profunda.</p>
+    <footer class="calma-footer">
+      Proyecto de bienestar auditivo — Hecho con amor por Pancho para mi Belén 💜
+      <small>Porque a veces, la calma también se diseña, se imprime y se programa.</small>
+    </footer>
+  </section>
+</main>
+<script src="../assets/js/respira.js"></script>
+<script src="../assets/js/calma.js"></script>
+  <script src="assets/js/dock.js"></script>
+</body></html>

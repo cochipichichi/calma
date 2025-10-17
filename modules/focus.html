@@ -1,0 +1,58 @@
+
+<!doctype html><html lang="es"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Focus Auditivo — CALMA·AR</title>
+<link rel="stylesheet" href="../assets/css/focus.css">
+<link rel="stylesheet" href="../assets/css/calma.css">
+  <link rel="stylesheet" href="assets/css/dock.css">
+</head><body>
+<div class="wrap">
+  <section class="panel">
+    <div class="topbar">
+      <h1>Focus Auditivo 🎧</h1>
+      <a href="../index.html">⬅️ Volver</a>
+    </div>
+    <p>Activa paisajes sonoros generados en el navegador (sin archivos externos): océano, lluvia, río, ruido blanco y rosa. Ajusta volúmenes de manera independiente.</p>
+    <div class="grid">
+      <div class="card" id="s1">
+        <h3>🌊 Océano</h3>
+        <button class="on">▶️ Activar</button>
+        <button class="off">⏹️ Detener</button>
+        <input class="range vol" type="range" min="0" max="1" step="0.01" value="0.4">
+      </div>
+      <div class="card" id="s2">
+        <h3>🌧️ Lluvia</h3>
+        <button class="on">▶️ Activar</button>
+        <button class="off">⏹️ Detener</button>
+        <input class="range vol" type="range" min="0" max="1" step="0.01" value="0.3">
+      </div>
+      <div class="card" id="s3">
+        <h3>🏞️ Río</h3>
+        <button class="on">▶️ Activar</button>
+        <button class="off">⏹️ Detener</button>
+        <input class="range vol" type="range" min="0" max="1" step="0.01" value="0.25">
+      </div>
+      <div class="card" id="s4">
+        <h3>⚪ Ruido blanco</h3>
+        <button class="on">▶️ Activar</button>
+        <button class="off">⏹️ Detener</button>
+        <input class="range vol" type="range" min="0" max="1" step="0.01" value="0.2">
+      </div>
+      <div class="card" id="s5">
+        <h3>🌸 Ruido rosa</h3>
+        <button class="on">▶️ Activar</button>
+        <button class="off">⏹️ Detener</button>
+        <input class="range vol" type="range" min="0" max="1" step="0.01" value="0.2">
+      </div>
+    </div>
+    <canvas id="viz" class="canvas" aria-hidden="true"></canvas>
+    <footer class="calma-footer">
+      Proyecto de bienestar auditivo — Hecho con amor por Pancho para mi Belén 💜
+      <small>Porque a veces, la calma también se diseña, se imprime y se programa.</small>
+    </footer>
+  </section>
+</div>
+<script src="../assets/js/focus.js"></script>
+<script src="../assets/js/calma.js"></script>
+  <script src="assets/js/dock.js"></script>
+</body></html>

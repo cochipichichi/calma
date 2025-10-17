@@ -1,0 +1,16 @@
+
+:root{ --bg:#0d1629; --fg:#eef3ff; --mut:#b9c3da }
+html,body{ height:100%; margin:0; font-family:system-ui,Segoe UI,Roboto,Ubuntu,Arial,sans-serif; background:linear-gradient(180deg,#0d1629,#0b1222); color:var(--fg) }
+.container{ max-width:1000px; margin:0 auto; padding:1.4rem }
+h1{ margin:.2rem 0 }
+.grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1rem; margin-top:1rem }
+.card{ background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); border-radius:16px; padding:1rem }
+.card h3{ margin-top:0 }
+.list{ display:flex; flex-direction:column; gap:.5rem }
+.item{ display:flex; align-items:center; gap:.5rem }
+.item input{ transform:scale(1.2) }
+.footer{ text-align:center; opacity:.8; margin-top:1rem }
+.badge{ font-size:.9rem; color:var(--mut) }
+.row{ display:flex; gap:.5rem; flex-wrap:wrap; align-items:center; justify-content:space-between }
+.btn{ padding:.55rem .9rem; border-radius:10px; border:1px solid rgba(255,255,255,.2); background:rgba(255,255,255,.08); color:var(--fg) }
+small{ color:var(--mut) }
