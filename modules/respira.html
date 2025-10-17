@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="../assets/css/respira.css">
 <link rel="stylesheet" href="../assets/css/calma.css">
   <link rel="stylesheet" href="assets/css/dock.css">
+  <link rel="stylesheet" href="assets/css/accessibility.css">
 </head><body>
 <main>
   <section class="card">
@@ -12,8 +13,11 @@
     <p class="lead">Animación guiada de respiración para momentos de ansiedad o tinnitus. Puedes activar la guía por voz si tu navegador la soporta.</p>
     <canvas id="breath" width="600" height="600" aria-label="Guía visual de respiración"></canvas>
     <div class="controls">
-      <button onclick="Respira.speakLoop()">🔊 Guía por voz</button>
-      <button onclick="Respira.stopSpeak()">🔇 Silencio</button>
+<button onclick="Respira.setPattern(4,7,8)">🧘 4–7–8</button>
+<button onclick="Respira.setPattern(4,4,4)">⬜ Box 4–4–4</button>
+<button onclick="Respira.setPattern(5,0,5)">🌿 5–0–5</button>
+      <button onclick="Respira.guide()">🔊 Guía por voz</button>
+      <button onclick="Respira.stopGuide()">🔇 Silencio</button>
       <label>Ritmo (respiraciones/min): <input type="range" min="3" max="10" value="6" oninput="Respira.setBpm(this.value)"></label>
       <a href="../index.html" class="btn">⬅️ Volver</a>
     </div>
@@ -27,4 +31,5 @@
 <script src="../assets/js/respira.js"></script>
 <script src="../assets/js/calma.js"></script>
   <script src="assets/js/dock.js"></script>
+  <script src="assets/js/accessibility.js"></script>
 </body></html>

@@ -1,0 +1,27 @@
+
+/* Accesibilidad */
+:root{
+  --calma-font-scale: 1;
+  --calma-fg: inherit;
+  --calma-bg: inherit;
+  --calma-link: inherit;
+}
+html{ font-size: calc(16px * var(--calma-font-scale)); }
+body.calma-contrast{
+  filter: none;
+  background: #000 !important;
+  color: #fff !important;
+}
+body.calma-contrast a{ color: #7cc7ff !important; }
+body.calma-contrast .calma-footer{ border-top: 1px dashed #fff4; }
+#calma-access{
+  position: fixed; right: 1rem; top: 1rem; z-index: 10000;
+  display: flex; gap: .4rem; flex-wrap: wrap;
+}
+#calma-access button{
+  padding: .42rem .7rem; border-radius: 10px; border: 1px solid rgba(255,255,255,.25);
+  background: rgba(255,255,255,.08); color: inherit; font-weight: 600; cursor: pointer;
+}
+@media (max-width:640px){
+  #calma-access{ right:.5rem; top:.5rem; }
+}

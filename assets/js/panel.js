@@ -56,3 +56,47 @@
 
   render();
 })();
+
+
+/* === Exportar a CSV y Google Sheets (opcional) === */
+(function(){
+  const btnCsv = document.createElement('button');
+  btnCsv.className='btn'; btnCsv.textContent='⬇️ Exportar CSV';
+  const btnSend = document.createElement('button');
+  btnSend.className='btn'; btnSend.textContent='📤 Enviar a Google Sheets';
+  const row = document.querySelector('.row'); if(row){ row.appendChild(btnCsv); row.appendChild(btnSend); }
+
+  function toCSV(){
+    const s = JSON.parse(localStorage.getItem('calma_panel_v1')||'{}');
+    const lines = [];
+    lines.push('fecha,usuario,pareja,tarea,estado,notas');
+    (s.tasks||[]).forEach(t => {
+      lines.push([s.day, s.user, s.partner, t.label, t.done?'hecho':'pendiente', (s.notes||'').replace(/\n/g,' ')].map(v=>`"${String(v).replaceAll('"','""')}"`).join(','));
+    });
+    const blob = new Blob([lines.join('\n')], {type:'text/csv;charset=utf-8'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href=url; a.download=`calma_panel_${s.day}.csv`; a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  async function toSheets(){
+    try{
+      const cfgUrl = 'assets/config/sheets.example.json';
+      const res = await fetch(cfgUrl); const cfg = await res.json();
+      if(!cfg.ENABLED){
+        alert('Sheets no está habilitado. Copia assets/config/sheets.example.json a assets/config/sheets.json y coloca tu WEBAPP_URL.'); return;
+      }
+      const s = JSON.parse(localStorage.getItem('calma_panel_v1')||'{}');
+      const payload = { date: s.day, user: s.user, partner: s.partner, tasks: s.tasks||[], notes: s.notes||'' };
+      const appRes = await fetch(cfg.GOOGLE_SHEETS_WEBAPP_URL, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) });
+      if(!appRes.ok) throw new Error('Error HTTP');
+      alert('Enviado a Google Sheets ✅');
+    }catch(e){
+      alert('No se pudo enviar a Sheets. Revisa la configuración.');
+      console.error(e);
+    }
+  }
+
+  btnCsv.addEventListener('click', toCSV);
+  btnSend.addEventListener('click', toSheets);
+})();
