@@ -1,1 +1,11 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'>
+<link rel='stylesheet' href='assets/css/accessibility.css'>
+<link rel='stylesheet' href='assets/css/dock.css'>
+</head><body>
 <!doctype html><meta charset='utf-8'><title>AURA</title><h1>AURA Panel</h1><button onclick="fetch('/api/mode',{method:'POST',headers:{'Content-Type':'application/json'},body:'{"mode":"pink"}'})">🌸 Rosa</button> <button onclick="fetch('/api/mode',{method:'POST',headers:{'Content-Type':'application/json'},body:'{"mode":"white"}'})">⚪ Blanco</button> <button onclick="fetch('/api/mode',{method:'POST',headers:{'Content-Type':'application/json'},body:'{"mode":"brown"}'})">🟤 Marrón</button><br><br>Volumen <input id=v type=range min=0 max=100 value=30 oninput="fetch('/api/volume',{method:'POST',headers:{'Content-Type':'application/json'},body:'{"value':+this.value+'}'}).catch(()=>{})">
+
+<footer class="calma-footer" style="margin-top:2rem;padding:1rem;text-align:center;opacity:.9">bienestar auditivo — Hecho con amor por Pancho para mi Belén 💜</footer>
+
+  <script src="assets/js/accessibility.js"></script>
+  <script src="assets/js/dock.js"></script>
+</body></html>
