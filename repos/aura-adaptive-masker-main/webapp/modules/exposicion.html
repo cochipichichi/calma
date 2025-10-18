@@ -22,4 +22,33 @@
 
   <script src="assets/js/accessibility.js"></script>
   <script src="assets/js/dock.js"></script>
+
+<script>
+(()=>{
+  const btn = document.createElement('button'); btn.textContent='❤️ Conectar pulso (BLE)'; btn.style='position:fixed;right:1rem;bottom:1rem;padding:.6rem .9rem;border-radius:12px';
+  document.body.appendChild(btn);
+  btn.onclick = async ()=>{
+    if(!navigator.bluetooth){ alert('Web Bluetooth no soportado'); return; }
+    try{
+      const device = await navigator.bluetooth.requestDevice({filters:[{services:['heart_rate'] }]});
+      const server = await device.gatt.connect();
+      const svc = await server.getPrimaryService('heart_rate');
+      const chr = await svc.getCharacteristic('heart_rate_measurement');
+      await chr.startNotifications();
+      chr.addEventListener('characteristicvaluechanged', (e)=>{
+        const v = e.target.value; const hr = v.getUint8(1); // simple parse
+        document.body.style.setProperty('--hr', hr);
+        // cambia color partículas según pulso
+        try{
+          const c = document.querySelector('#bg'); const ctx = c.getContext('2d'); ctx.fillStyle = hr>90? 'rgba(255,120,120,.85)' : 'rgba(230,240,255,.85)';
+        }catch(e){}
+      });
+      btn.textContent = '✅ Pulso conectado';
+    }catch(e){
+      alert('No se pudo conectar al sensor.');
+    }
+  };
+})();
+</script>
+
 </body></html>

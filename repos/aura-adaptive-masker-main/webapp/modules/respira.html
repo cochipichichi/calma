@@ -36,4 +36,87 @@
 
   <script src="assets/js/accessibility.js"></script>
   <script src="assets/js/dock.js"></script>
+
+<div class="controls" style="margin-top:1rem;display:grid;gap:.5rem">
+  <div style="display:flex;gap:.5rem;flex-wrap:wrap;align-items:center">
+    <label>🎙️ Guía con tu audio: <input id="voiceFile" type="file" accept="audio/*"></label>
+    <button onclick="window.playGuideOnce && window.playGuideOnce()">▶️ Probar audio</button>
+  </div>
+  <details style="background:rgba(255,255,255,.06);padding:.6rem;border-radius:10px">
+    <summary>🤝 Respira juntos (P2P sin servidor)</summary>
+    <div style="display:grid;gap:.4rem;margin-top:.5rem">
+      <button id="makeOffer">1) Crear oferta</button>
+      <textarea id="rtcOffer" rows="3" placeholder="Copiar y enviar a tu pareja"></textarea>
+      <button id="acceptOffer">2) Aceptar oferta / Crear respuesta</button>
+      <textarea id="rtcAnswer" rows="3" placeholder="Pegar aquí la respuesta del otro dispositivo"></textarea>
+      <button id="sendSync">🔄 Sincronizar respiración ahora</button>
+      <small>Usa mensajería para copiar/pegar la oferta y respuesta. No requiere cuentas ni servidor.</small>
+    </div>
+  </details>
+</div>
+
+<script>
+// === Respira Juntos (P2P WebRTC por copia/pega) + Audio personalizado ===
+(()=>{
+  // Audio personalizado
+  const file = document.getElementById('voiceFile');
+  if(file){
+    file.addEventListener('change', ()=>{
+      const f = file.files[0]; if(!f) return;
+      const url = URL.createObjectURL(f);
+      const audio = new Audio(url); audio.loop = false;
+      window.playGuideOnce = () => { audio.currentTime=0; audio.play(); };
+    });
+  }
+
+  // WebRTC copy/paste (sin servidor)
+  const areaOffer = document.getElementById('rtcOffer');
+  const areaAnswer= document.getElementById('rtcAnswer');
+  const btnMakeOffer = document.getElementById('makeOffer');
+  const btnAcceptOffer= document.getElementById('acceptOffer');
+  const btnSendSync = document.getElementById('sendSync');
+
+  const pc = new RTCPeerConnection({iceServers:[{urls:'stun:stun.l.google.com:19302'}]});
+  let ch = pc.createDataChannel('sync');
+  ch.onopen = ()=>console.log('canal abierto');
+  ch.onmessage = (e)=>{
+    if(e.data==='sync-breath' && window.Respira && Respira.setPattern){
+      // reinicia animación forzando repaint
+      if (window.Respira.restart) window.Respira.restart();
+    }
+  };
+
+  btnMakeOffer && btnMakeOffer.addEventListener('click', async ()=>{
+    const offer = await pc.createOffer(); await pc.setLocalDescription(offer);
+    // Espera ICE gather
+    await new Promise(res=>{ if(pc.iceGatheringState==='complete') res(); else pc.onicegatheringstatechange=()=> pc.iceGatheringState==='complete' and res(); });
+  });
+  pc.onicecandidate = ()=>{ if(pc.localDescription){ areaOffer.value = JSON.stringify(pc.localDescription); } };
+
+  btnAcceptOffer && btnAcceptOffer.addEventListener('click', async ()=>{
+    try{
+      const desc = JSON.parse(areaOffer.value);
+      await pc.setRemoteDescription(desc);
+      const ans = await pc.createAnswer(); await pc.setLocalDescription(ans);
+    }catch(e){ alert('Oferta inválida'); }
+  });
+  pc.oniceconnectionstatechange = ()=>{
+    if(pc.iceConnectionState==='connected'){
+      console.log('P2P conectado');
+    }
+  };
+  pc.ondatachannel = (ev)=>{ ch = ev.channel; ch.onmessage = (e)=>{ if(e.data==='sync-breath' && window.Respira && Respira.restart) Respira.restart(); }; };
+
+  btnSendSync && btnSendSync.addEventListener('click', ()=>{ try{ ch && ch.send('sync-breath'); }catch(e){} });
+
+  // Pegar answer
+  areaAnswer && areaAnswer.addEventListener('change', async ()=>{
+    try{
+      const ans = JSON.parse(areaAnswer.value);
+      await pc.setRemoteDescription(ans);
+    }catch(e){}
+  });
+})();
+</script>
+
 </body></html>

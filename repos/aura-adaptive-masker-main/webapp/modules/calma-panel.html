@@ -40,4 +40,52 @@
 
   <script src="assets/js/accessibility.js"></script>
   <script src="assets/js/dock.js"></script>
+
+<script>
+(()=>{
+  // Diario Sonoro: selector de ánimo -> paisaje sonoro breve
+  const mood = document.createElement('div');
+  mood.innerHTML = '<h3>Mi Diario Sonoro</h3><div style="display:flex;gap:.5rem;flex-wrap:wrap"><select id="moodSel"><option value="">Cómo te sientes...</option><option value="calma">Calma</option><option value="ansiedad">Ansiedad</option><option value="alegre">Alegre</option><option value="triste">Triste</option></select><button id="moodPlay">▶️ Sonar</button></div>';
+  document.querySelector('.grid').appendChild(Object.assign(document.createElement('div'),{className:'card',innerHTML:mood.innerHTML}));
+  (function(){
+    const ctx = new (window.AudioContext||window.webkitAudioContext)();
+    const master = ctx.createGain(); master.connect(ctx.destination); master.gain.value=.5;
+    function white(){ const b=ctx.createBuffer(1, ctx.sampleRate*2, ctx.sampleRate); const d=b.getChannelData(0); for(let i=0;i<d.length;i++) d[i]=Math.random()*2-1; const s=ctx.createBufferSource(); s.buffer=b; s.loop=true; return s; }
+    function scene(type){
+      const src = white();
+      let f = ctx.createBiquadFilter(); f.type='lowpass'; f.frequency.value = (type==='alegre'? 1500 : type==='calma'? 900 : type==='triste'? 700 : 500);
+      src.connect(f); const g=ctx.createGain(); g.gain.value= (type==='ansiedad'? .25 : .15); f.connect(g); g.connect(master);
+      return {src, g};
+    }
+    document.getElementById('moodPlay').onclick = ()=>{
+      const v = document.getElementById('moodSel').value; if(!v) return;
+      ctx.resume(); const sc = scene(v); try{ sc.src.start(); }catch(e){} setTimeout(()=>{ try{ sc.src.stop(); }catch(e){} }, 8000);
+    };
+  })();
+
+  // Cartas a mi calma (mensajes aleatorios)
+  const cartas = (JSON.parse(localStorage.getItem('calma_cartas')||'null')) || [
+    "Hoy no necesitas ser perfecta, solo respirar.",
+    "Estoy orgulloso de ti, mi amor.",
+    "Tu calma vale más que cualquier ruido.",
+    "Un paso a la vez, con amor."
+  ];
+  function renderCarta(){
+    let idx = Math.floor(Math.random()*cartas.length);
+    const el = document.getElementById('carta');
+    if(el) el.textContent = cartas[idx];
+  }
+  const box = document.createElement('div');
+  box.className='card';
+  box.innerHTML = '<h3>Cartas a mi calma</h3><p id="carta" style="opacity:.9"></p><div><input id="cartaIn" placeholder="Escribe una carta..."><button id="addCarta">Agregar</button> <button id="nextCarta">Otra</button></div>';
+  document.querySelector('.grid').appendChild(box);
+  document.getElementById('addCarta').onclick = ()=>{
+    const t = document.getElementById('cartaIn').value.trim(); if(!t) return;
+    cartas.push(t); localStorage.setItem('calma_cartas', JSON.stringify(cartas)); document.getElementById('cartaIn').value=''; renderCarta();
+  };
+  document.getElementById('nextCarta').onclick = renderCarta;
+  renderCarta();
+})();
+</script>
+
 </body></html>
